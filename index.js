@@ -1,24 +1,84 @@
 var inquirer = require("inquirer");
 var fs = require("fs");
 
-// 1) Define Behavior
-//    - What happens when a user does this
-//    - How about that?
-//    - Goals
-//    - Not goals
-//    - User Stories
-//    - Essentially: "What does finished look like?"
 
-// 2) Constants
-//    - What will never change during runtime?
+// array of questions for user
+const questions = [
+    {
+        type:"input",
+        message: "What is the Title of your project?",
+        name: "title"
+    },
+    {
+        type:"input",
+        message: "Enter the Readme.md's description here:",
+        name:"description"
+    },
+    {
+        type:"input",
+        message:"List the contents of your Readme",
+        name:"tableOfCont"
+    },
+    {
+        type:"input",
+        message:"What are the steps required to  install your project?",
+        name:"instillation"
+    },
+    //liscense goes here
+    {
+        type:"input",
+        message:"list contributers ",
+        name:"collaborative"
+        //how will i handle multiple peeps
+    },
 
-// 3) Data Definitions
-//    - How do we represent our goals as data?
-//    - Ex: player = health: int, name: string, x: int, y: int
+]   
 
-// 4) Create functions
-//    - Define inputs and outputs
-//    - Briefly state the goal of functions
-//    - Write stub
-//    - Write tests // Note: public facing functions (TDD: https://www.youtube.com/watch?v=EZ05e7EMOLM)
-//    - Implement the function
+
+// function to write README file
+function writeToFile(fileName, data) {
+}
+
+// function to initialize program
+function init() {
+    inquirer
+    .prompt(questions).then(function(userAnswers) {
+        console.log(userAnswers);
+
+        var filename = userAnswers.title + ".md";
+        var content =  generateMarkdown(userAnswers);
+        fs.writeFile(filename, content, err => {
+            err = "error"
+            err ? console.log(err)
+                : console.log("Your Readme is generated to an .md!")
+        })
+        //ternary operator. First if its true, second is false. Logging  error.
+
+    })
+}
+
+// function call to initialize program
+init();
+
+
+
+//Place in different file. 
+// function to generate markdown for README
+function generateMarkdown(data) {
+    return `# ${data.title}
+
+#description
+${data.description}
+
+#Table Of Contents
+${data.tableOfCont}
+
+# Installation
+${data.installation}
+
+`;
+  }
+  
+//   module.exports = generateMarkdown;
+  
+  

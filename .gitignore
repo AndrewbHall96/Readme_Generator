@@ -1,5 +1,9 @@
 # Mac
 .DS_Store
+# Custom
+*.md 
+!README.md
+!design.md
 
 # Logs
 logs
