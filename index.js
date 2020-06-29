@@ -1,9 +1,25 @@
 var inquirer = require("inquirer");
 var fs = require("fs");
+var tableGen = require("./utils.js");
 
 
 // array of questions for user
 const questions = [
+
+    {
+        type:"input",
+        message: "What is your github  username?",
+        name: "username"
+    },
+
+    { type:"password",
+        message: "What is your github  password?",
+        name: "password"
+    },
+    { type:"input",
+        message: "What is your github  repo?",
+        name: "repo"
+    },
     {
         type:"input",
         message: "What is the Title of your project?",
@@ -16,22 +32,29 @@ const questions = [
     },
     {
         type:"input",
-        message:"List the contents of your Readme",
-        name:"tableOfCont"
+        message:"Provide instructions and examples for use.",
+        name:"Usage"
     },
     {
         type:"input",
-        message:"What are the steps required to  install your project?",
-        name:"instillation"
+        message:"License? ('enter' to skip)",
+        name:"license"
     },
-    //liscense goes here
     {
         type:"input",
-        message:"list contributers ",
-        name:"collaborative"
-        //how will i handle multiple peeps
+        message:"Contributing ('enter' to skip)",
+        name:"contributing"
     },
-
+    {
+        type:"input",
+        message:"Tests? ('enter' to skip)",
+        name:"test"
+    },
+    {
+        type:"input",
+        message:"Would you like to include a badge?",
+        name:"confirm"
+    }
 ]   
 
 
@@ -43,7 +66,9 @@ function writeToFile(fileName, data) {
 function init() {
     inquirer
     .prompt(questions).then(function(userAnswers) {
-        console.log(userAnswers);
+    
+    tableGen(userAnswers)
+
 
         var filename = userAnswers.title + ".md";
         var content =  generateMarkdown(userAnswers);
@@ -61,24 +86,39 @@ function init() {
 init();
 
 
+//create function that generates a Markdown only for prompts that they enter input in.
 
 //Place in different file. 
 // function to generate markdown for README
 function generateMarkdown(data) {
     return `# ${data.title}
 
-#description
+# description
 ${data.description}
 
-#Table Of Contents
+# Table Of Contents
 ${data.tableOfCont}
 
 # Installation
 ${data.installation}
 
+#Usage
+${data.usage}
+
 `;
   }
   
 //   module.exports = generateMarkdown;
-  
+
+// //API model:
+// //US Stats tracker API below
+
+// var statsURL = "https://api.covid19api.com/total/country/united-states";
+
+// // console.log(statsURL)
+
+// $.ajax({
+//     url: statsURL,
+//     method: "GET"
+// }).then(function(statsAmerica) {
   
