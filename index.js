@@ -6,8 +6,8 @@ const {createGeneratedContent, generateMarkdown} = require("./utils.js");
 const questions = [
     {
         type:"input",
-        message: "What is your name?",
-        name: "name"
+        message: "What is your GitHub username?",
+        name: "username"
     },
     { 
         type:"input",
