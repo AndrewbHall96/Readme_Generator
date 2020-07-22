@@ -26,8 +26,13 @@ const questions = [
     },
     {
         type:"input",
+        message: "Enter the installation instruction's here:",
+        name:"installation"
+    },
+    {
+        type:"input",
         message:"Provide instructions and examples for use.",
-        name:"Usage"
+        name:"usage"
     },
     {
         type:"list",

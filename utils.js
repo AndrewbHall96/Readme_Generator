@@ -16,8 +16,7 @@ function createGeneratedContent(prompts) {
 
     let markdownData = prompts;
 
-    markdownData.toc = false;
-    let optionalsUsed = 0;
+    markdownData.toc = `* [Installation](#Installation)\n * [Usage](#Usage)\n`;
 
     // Badges
     if (markdownData.followers) {
@@ -25,13 +24,11 @@ function createGeneratedContent(prompts) {
     }
 
     // Generate table of contents?
-    if (markdownData.contributing) optionalsUsed++;
+    if (markdownData.contributing) markdownData.toc += `* [Contributors](#Contributing)\n`;
     if (markdownData.license != "No License") {
-        optionalsUsed++;
         markdownData.licenseBadge = badgeLicense;
     }
-    if (markdownData.test) optionalsUsed++;
-    if (optionalsUsed > 1) markdownData.toc = true;
+    if (markdownData.test) markdownData.toc += `* [Test](#Test)\n`;
 
     markdownData.questions = `If you have any questions, please address @${markdownData.username} at ${markdownData.email}`
 
@@ -47,21 +44,16 @@ function generateMarkdown(data) {
     if (data.followersBadge) followersBadgeMarkdown = `![followers](${data.followersBadge})\n`;
     if (data.licenseBadge) licenseBadgeMarkdown = `![license](${data.licenseBadge})\n`;
     if (data.contributing) contributionMarkdown = `# Contributing\n${data.contributing}\n`;
-    if(data.test) testMarkdown = `#test\n${data.test}\n`;
+    if(data.test) testMarkdown = `# test\n${data.test}\n`;
 
-    const titleDescriptionMarkdown = `# ${data.title}
+    let titleDescriptionMarkdown = `# ${data.title}\n`
+titleDescriptionMarkdown += `# Description\n ${data.description}\n`
 
-# description
-${data.description}
+titleDescriptionMarkdown += `# Table Of Contents\n ${data.toc}\n`
 
-# Table Of Contents
-${data.tableOfCont}
+titleDescriptionMarkdown += `# Installation\n ${data.installation}\n`
 
-# Installation
-${data.installation}
-
-#Usage
-${data.usage}\n`
+titleDescriptionMarkdown += `# Usage\n ${data.usage}\n`
 
 return followersBadgeMarkdown + licenseBadgeMarkdown 
     + titleDescriptionMarkdown + contributionMarkdown + testMarkdown;

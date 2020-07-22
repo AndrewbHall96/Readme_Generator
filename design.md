@@ -4,6 +4,7 @@
 * [Readme example](https://upenn.bootcampcontent.com/upenn-bootcamp/upenn-phi-fsf-ft-05-2020-u-c/blob/master/01-HTML-Git-CSS/04-Supplemental/Good-README-Guide/README.md)
 * [shields](https://shields.io)
 * [GitHub User API](https://developer.github.com/v3/users/#get-a-user)
+* [My Goals](#Goals)
 
 # Intro
 **readme_generator** is a terminal application that asks the user questions about the project they've created and generates a well-documented, structured readme for their GitHub account.
